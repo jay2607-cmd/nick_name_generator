@@ -1,29 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../database/bookmark.dart';
+import '../../database/bookmark.dart';
 
-class NamePreview extends StatefulWidget {
+class CustomNamePreview extends StatefulWidget {
+  final String prefix, suffix, word;
   final String answer;
-  TextStyle textStyle = TextStyle(fontSize: 20, fontWeight: FontWeight.bold);
-  NamePreview({super.key, required this.answer, required this.textStyle});
+  String fontName;
+  CustomNamePreview(
+      {super.key,
+      required this.answer,
+      required this.fontName,
+      required this.prefix,
+      required this.suffix,
+      required this.word});
+
 
   @override
-  State<NamePreview> createState() => _NamePreviewState();
+  State<CustomNamePreview> createState() => _CustomNamePreviewState();
 }
 
-class _NamePreviewState extends State<NamePreview> {
-
+class _CustomNamePreviewState extends State<CustomNamePreview> {
   Box<Bookmark> bookmarkBox = Hive.box<Bookmark>('bookmark');
   var isBookmarked;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    isBookmarked = bookmarkBox.values
-        .any((bookmark) => bookmark.name == widget.answer);
+    isBookmarked =
+        bookmarkBox.values.any((bookmark) => bookmark.name == widget.answer);
   }
 
   @override
@@ -35,9 +42,28 @@ class _NamePreviewState extends State<NamePreview> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            widget.answer,
-            style: widget.textStyle,
+          RichText(
+            text: TextSpan(
+              style: TextStyle(color: Colors.black, fontSize: 23),
+              children: [
+                TextSpan(
+                  text: widget.prefix,
+                ),
+                TextSpan(
+                  text: widget.word,
+                  style: GoogleFonts.getFont(
+                    widget.fontName,
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ), // Customize the name style here.
+                ),
+                TextSpan(
+                  text: widget.suffix,
+                ),
+              ],
+            ),
           ),
           SizedBox(
             height: 20,
@@ -69,21 +95,24 @@ class _NamePreviewState extends State<NamePreview> {
               IconButton(
                 onPressed: () {
                   if (isBookmarked) {
-                    bookmarkBox.deleteAt(bookmarkBox.values
-                        .toList()
-                        .indexWhere((bookmark) =>
-                    bookmark.name == widget.answer));
+                    bookmarkBox.deleteAt(bookmarkBox.values.toList().indexWhere(
+                        (bookmark) => bookmark.name == widget.answer));
+                    isBookmarked = false;
                     print(isBookmarked);
                   } else {
-                    bookmarkBox
-                        .add(Bookmark(name: widget.answer));
+                    bookmarkBox.add(
+                      Bookmark(
+                          name: widget.answer,
+                          fontName: widget.fontName,
+                          prefix: widget.prefix,
+                          suffix: widget.suffix,
+                          word: widget.word),
+                    );
+                    isBookmarked = true;
                     print(isBookmarked);
-
                   }
                   // Update the UI by calling setState
-                  setState(() {
-
-                  });
+                  setState(() {});
                 },
                 icon: isBookmarked
                     ? Icon(Icons.favorite)

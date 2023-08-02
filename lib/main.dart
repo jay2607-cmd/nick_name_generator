@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
-import 'package:nick_name/views/input_name_home.dart';
+import 'package:nick_name/views/home_screen.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'database/bookmark.dart';
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: InputNameHome(),
+      home: HomeScreen(),
     );
   }
 }

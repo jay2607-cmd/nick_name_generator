@@ -1,57 +1,30 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:nick_name/symbols_list.dart';
-import 'package:nick_name/views/name_preview.dart';
+import 'package:nick_name/utils/symbols_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HomeScreen extends StatefulWidget {
+import 'custom_name_preview.dart';
+
+class CustomNameGenerator extends StatefulWidget {
   String nameController = "";
-  HomeScreen({super.key, required this.nameController});
+  CustomNameGenerator({super.key, required this.nameController});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<CustomNameGenerator> createState() => _CustomNameGeneratorState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _CustomNameGeneratorState extends State<CustomNameGenerator> {
   final List<String> symbolsList = symbolsListVariable;
   String prefix = "";
   String suffix = "";
+  
+  String fontNameGlobal = "Montserrat";
 
-  var textStyle;
-
-  final List<String> stylishFonts = [
-    'Pacifico',
-    'Dancing Script',
-    'Lobster',
-    'Montserrat Alternates',
-    'Raleway Dots',
-    'Bungee Shade',
-    'Righteous',
-    'Kaushan Script',
-    'Trade Winds',
-    'Monoton',
-    'Black Ops One',
-    'Exo 2',
-    'Luckiest Guy',
-    'Press Start 2P',
-    'Orbitron',
-    'Poppins',
-    'Kanit',
-    'Anton',
-    'Varela Round',
-    'Comfortaa',
-  ];
+  final List<String> stylishFonts = fontNameList;
 
   String name = "";
   @override
   void initState() {
     super.initState();
-    for (int i = 0; i < symbolsList.length; i++) {
-      if (kDebugMode) {
-        print(symbolsList[i]);
-      }
-    }
-
     name = widget.nameController;
   }
 
@@ -70,8 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => NamePreview(
-                                answer: answer, textStyle: textStyle,
+                          builder: (context) => CustomNamePreview(
+                                answer: answer, fontName: fontNameGlobal,
+                            prefix: prefix,
+                            suffix: suffix,
+                            word: name,
                               )));
                 },
                 icon: Icon(Icons.navigate_next))
@@ -87,21 +63,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.grey.shade300,
                 child: Center(
                   child: RichText(
+
                     text: TextSpan(
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 24,
-                      ),
+                      style: TextStyle(fontSize: 20,color: Colors.black ),
                       children: [
                         TextSpan(
                           text: prefix,
                         ),
-                        TextSpan(text: ' '),
                         TextSpan(
                           text: name,
-                          style: textStyle,
+                          style: GoogleFonts.getFont(fontNameGlobal)
                         ),
-                        TextSpan(text: ' '),
                         TextSpan(
                           text: suffix,
                         ),
@@ -131,23 +103,14 @@ class _HomeScreenState extends State<HomeScreen> {
                     },
                   ),
 
-                  /*ListView.builder(
-                    itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return ListTile(
-                        title: Text(symbolsList[index]),
-                      );
-                    },
-                  ),*/
-
                   ListView.builder(
                     itemCount: stylishFonts.length,
-                    itemBuilder: (context, index) {
-                      final fontName = stylishFonts[index];
-                      final sampleText = '${widget.nameController}';
-                      textStyle = GoogleFonts.getFont(
+                    itemBuilder: (context,int index) {
+                      var fontName = stylishFonts[index];
+                      final sampleText = widget.nameController;
+                      var textStyle = GoogleFonts.getFont(
                         fontName,
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           // Add any additional styles you desire
@@ -156,13 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       return GestureDetector(
                         onTap: () {
-                          final fontName = stylishFonts[index];
-                          textStyle = GoogleFonts.getFont(fontName,
-                              textStyle: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                // Add any additional styles you desire
-                              ));
+                          fontNameGlobal = fontName;
                           setState(() {});
                         },
                         child: ListTile(
@@ -174,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
+
                   ListView.builder(
                     itemCount: symbolsList.length,
                     itemBuilder: (context, index) {

@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:nick_name/home_screen.dart';
 
-class InputNameHome extends StatefulWidget {
-  const InputNameHome({super.key});
+import 'custom_name_generator.dart';
+
+class CustomInputNameHome extends StatefulWidget {
+  const CustomInputNameHome({super.key});
 
   @override
-  State<InputNameHome> createState() => _InputNameHomeState();
+  State<CustomInputNameHome> createState() => _CustomInputNameHomeState();
 }
 
-class _InputNameHomeState extends State<InputNameHome> {
+class _CustomInputNameHomeState extends State<CustomInputNameHome> {
   TextEditingController nameController = TextEditingController();
 
   @override
@@ -23,10 +24,10 @@ class _InputNameHomeState extends State<InputNameHome> {
             padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8),
             child: TextFormField(
               controller: nameController,
-              decoration: InputDecoration(hintText: "Enter Name"),
+              decoration: const InputDecoration(hintText: "Enter Name"),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           ElevatedButton(
@@ -35,16 +36,19 @@ class _InputNameHomeState extends State<InputNameHome> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HomeScreen(
+                          builder: (context) => CustomNameGenerator(
                                 nameController: nameController.text,
                               )));
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Name cannot be empty"), duration: Duration(seconds: 1),));
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("Name cannot be empty"),
+                    duration: Duration(seconds: 1),
+                  ));
                 }
               },
               child: const Text("Generate"))
         ],
+
       ),
     );
   }
