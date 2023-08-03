@@ -22,13 +22,14 @@ class BookmarkAdapter extends TypeAdapter<Bookmark> {
       suffix: fields[2] as String,
       word: fields[3] as String,
       fontName: fields[4] as String,
+      isAIGenerated: fields[5] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, Bookmark obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.name)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class BookmarkAdapter extends TypeAdapter<Bookmark> {
       ..writeByte(3)
       ..write(obj.word)
       ..writeByte(4)
-      ..write(obj.fontName);
+      ..write(obj.fontName)
+      ..writeByte(5)
+      ..write(obj.isAIGenerated);
   }
 
   @override

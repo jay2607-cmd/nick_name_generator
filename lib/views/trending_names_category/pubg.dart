@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/symbols_list.dart';
+import '../custom name screens/custom_name_preview.dart';
 
 class Pubg extends StatefulWidget {
   const Pubg({super.key});
@@ -10,7 +11,6 @@ class Pubg extends StatefulWidget {
 }
 
 class _PubgState extends State<Pubg> {
-
   List<String> myTrendingBoysNamePUBG = trendingBoysNamePUBG;
   List<String> myTrendingGirlsNamePUBG = trendingGirlsNamePUBG;
 
@@ -34,13 +34,21 @@ class _PubgState extends State<Pubg> {
         ),
         body: TabBarView(
           children: [
-
             ListView.builder(
                 itemCount: myTrendingBoysNamePUBG.length,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     onTap: () {
-
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CustomNamePreview.forAIGenerated(
+                                    answer: myTrendingBoysNamePUBG[index],
+                                    word: myTrendingBoysNamePUBG[index],
+                                    isForAIGenerated: true,
+                                    // fontName: fontName,
+                                  )));
                     },
                     child: ListTile(
                       title: Padding(
@@ -50,14 +58,28 @@ class _PubgState extends State<Pubg> {
                     ),
                   );
                 }),
-
             ListView.builder(
                 itemCount: myTrendingGirlsNamePUBG.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(myTrendingGirlsNamePUBG[index]),
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CustomNamePreview.forAIGenerated(
+                                    answer: myTrendingGirlsNamePUBG[index],
+                                    word: myTrendingGirlsNamePUBG[index],
+                                    isForAIGenerated: true,
+                                    // fontName: fontName,
+                                  )));
+                    },
+
+                    child: ListTile(
+                      title: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(myTrendingGirlsNamePUBG[index]),
+                      ),
                     ),
                   );
                 }),

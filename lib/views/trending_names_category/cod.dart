@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utils/symbols_list.dart';
+import '../custom name screens/custom_name_preview.dart';
 
 class Cod extends StatefulWidget {
   const Cod({super.key});
@@ -33,10 +34,25 @@ class _CodState extends State<Cod> {
           ListView.builder(
               itemCount: myTrendingNameCOD.length,
               itemBuilder: (BuildContext context, int index) {
-                return ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Text(myTrendingNameCOD[index]),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                CustomNamePreview.forAIGenerated(
+                                  answer: myTrendingNameCOD[index],
+                                  word: myTrendingNameCOD[index],
+                                  isForAIGenerated: true,
+                                  // fontName: fontName,
+                                )));
+                  },
+
+                  child: ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(myTrendingNameCOD[index]),
+                    ),
                   ),
                 );
               }),

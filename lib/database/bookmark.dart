@@ -18,10 +18,14 @@ class Bookmark extends HiveObject {
   @HiveField(4)
   late String fontName;
 
+  @HiveField(5)
+  late bool isAIGenerated;
+
   Bookmark(
       {required this.name,
       required this.prefix,
       required this.suffix,
       required this.word,
-      required this.fontName});
+      required this.fontName,
+      required this.isAIGenerated});
 }

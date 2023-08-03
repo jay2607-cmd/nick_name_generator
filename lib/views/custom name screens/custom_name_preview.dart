@@ -7,9 +7,10 @@ import 'package:share_plus/share_plus.dart';
 import '../../database/bookmark.dart';
 
 class CustomNamePreview extends StatefulWidget {
-  final String prefix, suffix, word;
-  final String answer;
-  String fontName;
+  String prefix = "", suffix = "", word = "";
+  String answer;
+  String fontName = 'Pacifico';
+  bool isForAIGenerated = false;
   CustomNamePreview(
       {super.key,
       required this.answer,
@@ -18,6 +19,13 @@ class CustomNamePreview extends StatefulWidget {
       required this.suffix,
       required this.word});
 
+  CustomNamePreview.forAIGenerated(
+      {super.key,
+      required this.answer,
+      required this.word,
+      required this.isForAIGenerated
+      // required this.fontName,
+      });
 
   @override
   State<CustomNamePreview> createState() => _CustomNamePreviewState();
@@ -39,89 +47,96 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
       appBar: AppBar(
         title: Text("Name Preview"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RichText(
-            text: TextSpan(
-              style: TextStyle(color: Colors.black, fontSize: 23),
-              children: [
-                TextSpan(
-                  text: widget.prefix,
-                ),
-                TextSpan(
-                  text: widget.word,
-                  style: GoogleFonts.getFont(
-                    widget.fontName,
-                    textStyle: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ), // Customize the name style here.
-                ),
-                TextSpan(
-                  text: widget.suffix,
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+      body: namePreviewBuildColumn(context),
+    );
+  }
+
+  Column namePreviewBuildColumn(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        RichText(
+          text: TextSpan(
+            style: TextStyle(color: Colors.black, fontSize: 23),
             children: [
-              IconButton(
-                  onPressed: () {
-                    Clipboard.setData(
-                            new ClipboardData(text: "${widget.answer}"))
-                        .then((_) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Copied to your clipboard !')));
-                    });
-                  },
-                  icon: Icon(Icons.copy)),
-              IconButton(
-                  onPressed: () {
-                    Share.share('${widget.answer}',
-                        subject: 'Sharing from Nick Name');
-                  },
-                  icon: Icon(Icons.share)),
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(Icons.edit)),
-              IconButton(
-                onPressed: () {
-                  if (isBookmarked) {
-                    bookmarkBox.deleteAt(bookmarkBox.values.toList().indexWhere(
-                        (bookmark) => bookmark.name == widget.answer));
-                    isBookmarked = false;
-                    print(isBookmarked);
-                  } else {
-                    bookmarkBox.add(
-                      Bookmark(
-                          name: widget.answer,
-                          fontName: widget.fontName,
-                          prefix: widget.prefix,
-                          suffix: widget.suffix,
-                          word: widget.word),
-                    );
-                    isBookmarked = true;
-                    print(isBookmarked);
-                  }
-                  // Update the UI by calling setState
-                  setState(() {});
-                },
-                icon: isBookmarked
-                    ? Icon(Icons.favorite)
-                    : Icon(Icons.favorite_border),
-              )
+              TextSpan(
+                text: widget.prefix,
+              ),
+              TextSpan(
+                text: widget.word,
+
+                style: !widget.isForAIGenerated
+                    ? GoogleFonts.getFont(
+                        widget.fontName,
+                        textStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    : null, // Customize the name style here.
+              ),
+              TextSpan(
+                text: widget.suffix,
+              ),
             ],
-          )
-        ],
-      ),
+          ),
+        ),
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+                onPressed: () {
+                  Clipboard.setData(
+                          new ClipboardData(text: "${widget.answer}"))
+                      .then((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text('Copied to your clipboard !')));
+                  });
+                },
+                icon: Icon(Icons.copy)),
+            IconButton(
+                onPressed: () {
+                  Share.share('${widget.answer}',
+                      subject: 'Sharing from Nick Name');
+                },
+                icon: Icon(Icons.share)),
+            IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.edit)),
+            IconButton(
+              onPressed: () {
+                if (isBookmarked) {
+                  bookmarkBox.deleteAt(bookmarkBox.values.toList().indexWhere(
+                      (bookmark) => bookmark.name == widget.answer));
+                  isBookmarked = false;
+                  print(isBookmarked);
+                } else {
+                  bookmarkBox.add(
+                    Bookmark(
+                        isAIGenerated: widget.isForAIGenerated,
+                        name: widget.answer,
+                        fontName: widget.fontName,
+                        prefix: widget.prefix,
+                        suffix: widget.suffix,
+                        word: widget.word),
+                  );
+                  isBookmarked = true;
+                  print(isBookmarked);
+                }
+                // Update the UI by calling setState
+                setState(() {});
+              },
+              icon: isBookmarked
+                  ? Icon(Icons.favorite)
+                  : Icon(Icons.favorite_border),
+            )
+          ],
+        )
+      ],
     );
   }
 }

@@ -19,7 +19,11 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
   int randomSuffixIndex = 0;
   int randomFontIndex = 0;
 
-  final List<String> symbolsList = symbolsListVariable;
+
+
+  final List<String> myPrefixList = prefixList;
+  final List<String> mySuffixList = suffixList;
+
 
   String prefix = "";
   String suffix = "";
@@ -38,20 +42,20 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
           title: Text("Auto Name Generator"),
         ),
         body: ListView.builder(
-            itemCount: 50,
+            itemCount: 100,
             itemBuilder: (BuildContext context, int index) {
               Random random = Random();
 
-              randomPrefixIndex = random.nextInt(symbolsList.length);
-              randomSuffixIndex = random.nextInt(symbolsList.length);
+              randomPrefixIndex = random.nextInt(myPrefixList.length);
+              randomSuffixIndex = random.nextInt(mySuffixList.length);
               randomFontIndex = random.nextInt(stylishFonts.length);
 
-              String prefix = symbolsList[randomPrefixIndex];
-              String suffix = symbolsList[randomSuffixIndex];
+              String prefix = myPrefixList[randomPrefixIndex];
+              String suffix = mySuffixList[randomSuffixIndex];
               String word = widget.nameController;
 
               String answer =
-                  "${symbolsList[randomPrefixIndex]}${widget.nameController}${symbolsList[randomSuffixIndex]}";
+                  "${myPrefixList[randomPrefixIndex]}${widget.nameController}${mySuffixList[randomSuffixIndex]}";
 
               String fontName = stylishFonts[randomFontIndex];
 
@@ -78,7 +82,7 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
                       style: DefaultTextStyle.of(context).style,
                       children: [
                         TextSpan(
-                          text: "${symbolsList[randomPrefixIndex]} ",
+                          text: "${myPrefixList[randomPrefixIndex]} ",
                         ),
                         TextSpan(
                           text: widget.nameController,
@@ -91,7 +95,7 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
                           ), // Customize the name style here.
                         ),
                         TextSpan(
-                          text: " ${symbolsList[randomSuffixIndex]}",
+                          text: " ${mySuffixList[randomSuffixIndex]}",
                         ),
                       ],
                     ),

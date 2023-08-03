@@ -28,40 +28,54 @@ class _BookmarkedNamesState extends State<BookmarkedNames> {
           : ListView.builder(
               itemCount: bookmarkBox.length,
               itemBuilder: (BuildContext context, int index) {
-
                 String savedNames = bookmarkedNames[index].name;
                 String fontName = bookmarkedNames[index].fontName;
                 String prefix = bookmarkedNames[index].prefix;
                 String suffix = bookmarkedNames[index].suffix;
                 String word = bookmarkedNames[index].word;
+                bool isAIGenerated = bookmarkedNames[index].isAIGenerated;
 
                 bool isBookmarked = bookmarkBox.values
                     .any((bookmark) => bookmark.name == savedNames);
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CustomNamePreview(
-                                  answer: savedNames,
-                                  fontName: fontName,
-                                  prefix: prefix,
-                                  suffix: suffix,
-                                  word: word,
-                                )));
+                    if (isAIGenerated) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  CustomNamePreview.forAIGenerated(
+                                    answer: savedNames,
+                                    word: word,
+                                    isForAIGenerated: isAIGenerated,
+                                  )));
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CustomNamePreview(
+                                    answer: savedNames,
+                                    fontName: fontName,
+                                    prefix: prefix,
+                                    suffix: suffix,
+                                    word: word,
+                                  )));
+                    }
                   },
                   child: ListTile(
                     title: Center(
                         child: Text(
                       savedNames,
-                      style: GoogleFonts.getFont(
-                        fontName,
-                        textStyle: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      style: !isAIGenerated
+                          ? GoogleFonts.getFont(
+                              fontName,
+                              textStyle: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          : null,
                     )),
                   ),
                 );

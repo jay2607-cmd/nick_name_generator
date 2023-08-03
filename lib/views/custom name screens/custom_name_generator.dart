@@ -13,7 +13,9 @@ class CustomNameGenerator extends StatefulWidget {
 }
 
 class _CustomNameGeneratorState extends State<CustomNameGenerator> {
-  final List<String> symbolsList = symbolsListVariable;
+  final myPrefixList = prefixList;
+  final mySuffixList =  suffixList;
+
   String prefix = "";
   String suffix = "";
   
@@ -87,17 +89,17 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
               child: TabBarView(
                 children: [
                   ListView.builder(
-                    itemCount: symbolsList.length,
+                    itemCount: myPrefixList.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          prefix = symbolsList[index];
-                          print(symbolsList[index] + widget.nameController);
+                          prefix = myPrefixList[index];
+                          print("$index + ${myPrefixList[index]}");
 
                           setState(() {});
                         },
                         child: ListTile(
-                          title: Text(symbolsList[index]),
+                          title: Text(myPrefixList[index]),
                         ),
                       );
                     },
@@ -133,17 +135,18 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
                   ),
 
                   ListView.builder(
-                    itemCount: symbolsList.length,
+                    itemCount: mySuffixList.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          suffix = symbolsList[index];
-                          print(widget.nameController + symbolsList[index]);
+                          suffix = mySuffixList[index];
+                          print("$index + ${mySuffixList[index]}");
+
 
                           setState(() {});
                         },
                         child: ListTile(
-                          title: Text(symbolsList[index]),
+                          title: Text(mySuffixList[index]),
                         ),
                       );
                     },
