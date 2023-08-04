@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:nick_name/views/bookmarkes_name.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../database/bookmark.dart';
 
-class CustomNamePreview extends StatefulWidget {
+class BookmarkNamePreview extends StatefulWidget {
   String prefix = "", suffix = "", word = "";
   String answer;
   String fontName = 'Pacifico';
   bool isForAIGenerated = false;
-  CustomNamePreview(
+  BookmarkNamePreview(
       {super.key,
       required this.answer,
       required this.fontName,
@@ -19,7 +20,7 @@ class CustomNamePreview extends StatefulWidget {
       required this.suffix,
       required this.word});
 
-  CustomNamePreview.forAIGenerated(
+  BookmarkNamePreview.forAIGenerated(
       {super.key,
       required this.answer,
       required this.word,
@@ -28,10 +29,10 @@ class CustomNamePreview extends StatefulWidget {
       });
 
   @override
-  State<CustomNamePreview> createState() => _CustomNamePreviewState();
+  State<BookmarkNamePreview> createState() => _BookmarkNamePreviewState();
 }
 
-class _CustomNamePreviewState extends State<CustomNamePreview> {
+class _BookmarkNamePreviewState extends State<BookmarkNamePreview> {
   Box<Bookmark> bookmarkBox = Hive.box<Bookmark>('bookmark');
   var isBookmarked;
   @override
@@ -43,11 +44,18 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Name Preview"),
+    return WillPopScope(
+      onWillPop: _willPopCallback,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: _willPopCallback,
+            icon: Icon(Icons.arrow_back),
+          ),
+          title: Text("Name Preview"),
+        ),
+        body: namePreviewBuildColumn(context),
       ),
-      body: namePreviewBuildColumn(context),
     );
   }
 
@@ -136,5 +144,11 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
         )
       ],
     );
+  }
+
+  Future<bool> _willPopCallback() {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => BookmarkedNames()));
+    return Future.value(true);
   }
 }

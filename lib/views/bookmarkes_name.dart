@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:nick_name/bookmark_name_preview.dart';
 
 import '../database/bookmark.dart';
 import 'custom name screens/custom_name_preview.dart';
@@ -13,6 +14,8 @@ class BookmarkedNames extends StatefulWidget {
 }
 
 class _BookmarkedNamesState extends State<BookmarkedNames> {
+
+
   Box<Bookmark> bookmarkBox = Hive.box<Bookmark>('bookmark');
 
   @override
@@ -41,20 +44,20 @@ class _BookmarkedNamesState extends State<BookmarkedNames> {
                 return GestureDetector(
                   onTap: () {
                     if (isAIGenerated) {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  CustomNamePreview.forAIGenerated(
+                                  BookmarkNamePreview.forAIGenerated(
                                     answer: savedNames,
                                     word: word,
                                     isForAIGenerated: isAIGenerated,
                                   )));
                     } else {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => CustomNamePreview(
+                              builder: (context) => BookmarkNamePreview(
                                     answer: savedNames,
                                     fontName: fontName,
                                     prefix: prefix,
