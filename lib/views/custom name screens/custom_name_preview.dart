@@ -22,8 +22,6 @@ class CustomNamePreview extends StatefulWidget {
 
   CustomNamePreview.forAIGenerated(
       {super.key,
-
-
       required this.answer,
       required this.word,
       required this.isForAIGenerated
@@ -33,6 +31,7 @@ class CustomNamePreview extends StatefulWidget {
   @override
   State<CustomNamePreview> createState() => _CustomNamePreviewState();
 }
+
 
 class _CustomNamePreviewState extends State<CustomNamePreview> {
   Box<Bookmark> bookmarkBox = Hive.box<Bookmark>('bookmark');
