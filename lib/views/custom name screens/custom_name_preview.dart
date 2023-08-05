@@ -32,7 +32,6 @@ class CustomNamePreview extends StatefulWidget {
   State<CustomNamePreview> createState() => _CustomNamePreviewState();
 }
 
-
 class _CustomNamePreviewState extends State<CustomNamePreview> {
   Box<Bookmark> bookmarkBox = Hive.box<Bookmark>('bookmark');
   var isBookmarked;
