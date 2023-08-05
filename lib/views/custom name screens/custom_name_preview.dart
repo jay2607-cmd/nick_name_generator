@@ -110,6 +110,8 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
                 if (isBookmarked) {
                   bookmarkBox.deleteAt(bookmarkBox.values.toList().indexWhere(
                       (bookmark) => bookmark.name == widget.answer));
+                  buildSnackBar("Bookmarked Removed",Colors.red.shade300);
+
                   isBookmarked = false;
                   print(isBookmarked);
                 } else {
@@ -123,6 +125,7 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
                         word: widget.word),
                   );
                   isBookmarked = true;
+                  buildSnackBar("Bookmarked Saved",Colors.blue.shade300);
                   print(isBookmarked);
                 }
                 // Update the UI by calling setState
@@ -135,6 +138,13 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
           ],
         )
       ],
+    );
+  }
+  SnackBar buildSnackBar(String content,Color color) {
+    return SnackBar(
+      content: Text(content),
+      backgroundColor: color,
+      duration: Duration(seconds: 1),
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
+import 'package:nick_name/views/home_screen.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../database/bookmark.dart';
@@ -19,8 +20,6 @@ class InDetail extends StatefulWidget {
 Box<Bookmark> bookmarkBox = Hive.box<Bookmark>('bookmark');
 
 class _InDetailState extends State<InDetail> {
-
-
   List<Bookmark> bookmarkedNames = bookmarkBox.values.toList();
 
   final FocusNode _textFieldFocusNode = FocusNode();
@@ -32,7 +31,6 @@ class _InDetailState extends State<InDetail> {
 
   TextEditingController controller1 = TextEditingController();
   TextEditingController controller2 = TextEditingController();
-
   @override
   void initState() {
     super.initState();
@@ -113,38 +111,17 @@ class _InDetailState extends State<InDetail> {
                         ),
                         IconButton(
                           onPressed: () {
-                            Share.share('${controller1.text}',
-                                subject: 'Sharing from Nick Name');
+                            if (controller1.text.isNotEmpty) {
+                              Share.share('${controller1.text}',
+                                  subject: 'Sharing from Nick Name');
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  buildSnackBar(
+                                      "Empty Value Cannot be Shared"));
+                            }
                           },
                           icon: Icon(Icons.share),
                         ),
-                    /*    IconButton(
-                          onPressed: () {
-                            if (isBookmarked) {
-                              bookmarkBox.deleteAt(bookmarkBox.values.toList().indexWhere(
-                                      (bookmark) => bookmark.name == widget.answer));
-                              isBookmarked = false;
-                              print(isBookmarked);
-                            } else {
-                              bookmarkBox.add(
-                                Bookmark(
-                                    isAIGenerated: widget.isForAIGenerated,
-                                    name: widget.answer,
-                                    fontName: widget.fontName,
-                                    prefix: widget.prefix,
-                                    suffix: widget.suffix,
-                                    word: widget.word),
-                              );
-                              isBookmarked = true;
-                              print(isBookmarked);
-                            }
-                            // Update the UI by calling setState
-                            setState(() {});
-                          },
-                          icon: isBookmarked
-                              ? Icon(Icons.favorite)
-                              : Icon(Icons.favorite_border),
-                        )*/
                       ],
                     )
                   ],
@@ -209,6 +186,14 @@ class _InDetailState extends State<InDetail> {
           ],
         ),
       ),
+    );
+  }
+
+  SnackBar buildSnackBar(String content) {
+    return SnackBar(
+      content: Text(content),
+      backgroundColor: Colors.red.shade300,
+      duration: Duration(seconds: 1),
     );
   }
 
