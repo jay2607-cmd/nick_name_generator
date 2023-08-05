@@ -42,6 +42,7 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
         bookmarkBox.values.any((bookmark) => bookmark.name == widget.answer);
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
