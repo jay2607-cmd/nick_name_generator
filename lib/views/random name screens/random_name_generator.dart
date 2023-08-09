@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../constant.dart';
 import '../../utils/symbols_list.dart';
 import '../custom name screens/custom_name_preview.dart';
 
@@ -39,8 +40,30 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Auto Name Generator"),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: IconButton(
+              icon: Image.asset(
+                'assets/images/back.png',
+                height: 24,
+                width: 24,
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ),
+          title: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(
+              "Auto Name Generator",
+              style: kAppbarStyle,
+            ),
+          ),
         ),
+
         body: ListView.builder(
             itemCount: 100,
             itemBuilder: (BuildContext context, int index) {
@@ -77,27 +100,37 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
                   );
                 },
                 child: ListTile(
-                  title: RichText(
-                    text: TextSpan(
-                      style: DefaultTextStyle.of(context).style,
-                      children: [
-                        TextSpan(
-                          text: "${myPrefixList[randomPrefixIndex]} ",
-                        ),
-                        TextSpan(
-                          text: widget.nameController,
-                          style: GoogleFonts.getFont(
-                            fontName,
-                            textStyle: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                  title: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: circleAvatarUI,
+                    ),
+                    padding: EdgeInsets.all(16),
+                    child: Center(
+                      child: RichText(
+
+                        text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children: [
+                            TextSpan(
+                              text: "${myPrefixList[randomPrefixIndex]} ",
                             ),
-                          ), // Customize the name style here.
+                            TextSpan(
+                              text: widget.nameController,
+                              style: GoogleFonts.getFont(
+                                fontName,
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ), // Customize the name style here.
+                            ),
+                            TextSpan(
+                              text: " ${mySuffixList[randomSuffixIndex]}",
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: " ${mySuffixList[randomSuffixIndex]}",
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

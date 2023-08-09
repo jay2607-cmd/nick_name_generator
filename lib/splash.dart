@@ -10,7 +10,7 @@ class Splash extends StatelessWidget {
   Widget build(BuildContext context) {
     Timer(
         const Duration(milliseconds: 1500),
-        () => Navigator.pushReplacement(
+        () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeScreen())));
 
     return const Scaffold(

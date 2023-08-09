@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:nick_name/bookmark_name_preview.dart';
 
+import '../constant.dart';
 import '../database/bookmark.dart';
 import 'custom name screens/custom_name_preview.dart';
 
@@ -24,7 +25,28 @@ class _BookmarkedNamesState extends State<BookmarkedNames> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("Saved Names"),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10),
+          child: IconButton(
+            icon: Image.asset(
+              'assets/images/back.png',
+              height: 24,
+              width: 24,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
+        title: Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Text(
+            "Saved Names",
+            style: kAppbarStyle,
+          ),
+        ),
       ),
       body: bookmarkedNames.isEmpty
           ? Center(child: Text("No Saved Names"))
@@ -67,19 +89,26 @@ class _BookmarkedNamesState extends State<BookmarkedNames> {
                     }
                   },
                   child: ListTile(
-                    title: Center(
-                        child: Text(
-                      savedNames,
-                      style: !isAIGenerated
-                          ? GoogleFonts.getFont(
-                              fontName,
-                              textStyle: const TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
-                          : null,
-                    )),
+                    title: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: circleAvatarUI,
+                      ),
+                      padding: EdgeInsets.all(16),
+                      child: Center(
+                          child: Text(
+                        savedNames,
+                        style: !isAIGenerated
+                            ? GoogleFonts.getFont(
+                                fontName,
+                                textStyle: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : null,
+                      )),
+                    ),
                   ),
                 );
               },

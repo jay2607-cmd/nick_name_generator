@@ -20,6 +20,7 @@ class _PubgState extends State<Pubg> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
+
           title: Text("PUBG"),
           bottom: const TabBar(
             tabs: [
