@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:nick_name/bookmark_name_preview.dart';
 
-import '../constant.dart';
+import '../utils/constant.dart';
 import '../database/bookmark.dart';
 import 'custom name screens/custom_name_preview.dart';
 
@@ -99,14 +99,10 @@ class _BookmarkedNamesState extends State<BookmarkedNames> {
                           child: Text(
                         savedNames,
                         style: !isAIGenerated
-                            ? GoogleFonts.getFont(
-                                fontName,
-                                textStyle: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              )
-                            : null,
+                            ? TextStyle(
+                            fontFamily: fontName, fontSize: 20
+                        )
+                            : TextStyle(),
                       )),
                     ),
                   ),

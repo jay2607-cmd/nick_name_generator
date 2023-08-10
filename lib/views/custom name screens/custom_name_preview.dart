@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../constant.dart';
+import '../../utils/constant.dart';
 import '../../database/bookmark.dart';
 
 class CustomNamePreview extends StatefulWidget {
@@ -65,7 +65,7 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
         title: Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Text(
-            "Auto Name Generator",
+            "Name Preview",
             style: kAppbarStyle,
           ),
         ),
@@ -98,7 +98,7 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
                 child: Center(
                   child: RichText(
                     text: TextSpan(
-                      style: TextStyle(color: Colors.black, fontSize: 23),
+                      style: TextStyle(color: Colors.black, fontSize: 20),
                       children: [
                         TextSpan(
                           text: widget.prefix,
@@ -107,11 +107,11 @@ class _CustomNamePreviewState extends State<CustomNamePreview> {
                           text: widget.word,
 
                           style: !widget.isForAIGenerated
-                              ? GoogleFonts.getFont(
-                                  widget.fontName,
-                                )
+                              ? TextStyle(
+fontFamily: widget.fontName
+                          )
                               : TextStyle(
-                                  fontWeight: FontWeight.bold,
+
                                 ), // Customize the name style here.
                         ),
                         TextSpan(

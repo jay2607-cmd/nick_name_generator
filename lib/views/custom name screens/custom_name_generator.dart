@@ -1,6 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:nick_name/constant.dart';
+import 'package:nick_name/utils/constant.dart';
 import 'package:nick_name/utils/symbols_list.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -37,6 +37,8 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
     String answer = "$prefix $name $suffix";
     return DefaultTabController(
       length: 3,
+      initialIndex: 1,
+
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
@@ -86,7 +88,7 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
                             ),
                             TextSpan(
                                 text: name,
-                                style: GoogleFonts.getFont(fontNameGlobal)),
+                                style: TextStyle(fontFamily: fontNameGlobal)),
                             TextSpan(
                               text: suffix,
                             ),
@@ -103,8 +105,7 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
                 margin: EdgeInsets.only(bottom: 172),
                 child: Text(
                   "Custom Name Generator",
-                  style: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold),
+                  style: kAppbarStyle
                 )),
             actions: [
               Container(
@@ -148,13 +149,13 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
                   ),
                   tabs: [
                     Tab(
-                      child: Text("Prefix"),
+                      child: Text("Prefix",style: kNoneStyle,),
                     ),
                     Tab(
-                      child: Text("Font Style"),
+                      child: Text("Font Style",style: kNoneStyle,),
                     ),
                     Tab(
-                      child: Text("Suffix"),
+                      child: Text("Suffix",style: kNoneStyle,),
                     ),
                   ],
                 ),
@@ -213,13 +214,12 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
       itemBuilder: (context, int index) {
         var fontName = stylishFonts[index];
         final sampleText = widget.nameController;
-        var textStyle = GoogleFonts.getFont(
-          fontName,
-          textStyle: const TextStyle(
+        var textStyle =  TextStyle(
+          fontFamily: fontName,
             fontSize: 20,
             fontWeight: FontWeight.bold,
             // Add any additional styles you desire
-          ),
+
         );
 
         return GestureDetector(
@@ -265,7 +265,7 @@ class _CustomNameGeneratorState extends State<CustomNameGenerator> {
                   color: backgroundUI,
                 ),
                 padding: EdgeInsets.all(16),
-                child: Center(child: Text(myPrefixList[index]))),
+                child: Center(child: Text(myPrefixList[index],))),
           ),
         );
       },

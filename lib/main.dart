@@ -28,6 +28,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: TextTheme(
+          bodyMedium: TextStyle(fontFamily: 'Montserrat'),
+
+          // You can define more text styles here if needed
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       title: 'Nick Name',
       home: Splash(),

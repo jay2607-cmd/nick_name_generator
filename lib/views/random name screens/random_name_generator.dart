@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../constant.dart';
+import '../../utils/constant.dart';
 import '../../utils/symbols_list.dart';
 import '../custom name screens/custom_name_preview.dart';
 
@@ -110,19 +110,20 @@ class _RandomNameGeneratorState extends State<RandomNameGenerator> {
                       child: RichText(
 
                         text: TextSpan(
-                          style: DefaultTextStyle.of(context).style,
+                          style: TextStyle(
+                            color: Colors.black
+                          ),
                           children: [
                             TextSpan(
                               text: "${myPrefixList[randomPrefixIndex]} ",
                             ),
                             TextSpan(
                               text: widget.nameController,
-                              style: GoogleFonts.getFont(
-                                fontName,
-                                textStyle: const TextStyle(
+                              style: TextStyle(
+                                fontFamily: fontName,
                                   fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
+
+
                               ), // Customize the name style here.
                             ),
                             TextSpan(

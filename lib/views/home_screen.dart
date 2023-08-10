@@ -6,7 +6,7 @@ import 'package:nick_name/views/name%20ideas/name_ideas.dart';
 import 'package:nick_name/views/random%20name%20screens/random_input_name_home.dart';
 import 'package:nick_name/views/trending_names_home_screen.dart';
 
-import '../constant.dart';
+import '../utils/constant.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -33,13 +33,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 4),
+                  padding: const EdgeInsets.only(top: 4, left: 16, right: 16,),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     // crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.asset(
-                        "assets/images/1.png",
+                        "assets/images/app_title.png",
                         height: 80,
                         width: 80,
                         fit: BoxFit.contain,
@@ -51,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             "Nick Name : ",
                             style: TextStyle(
-                                fontSize: 21, fontWeight: FontWeight.bold),
+                                fontSize: 20, fontWeight: FontWeight.bold, fontFamily: "Montserrat"),
                           ),
                           SizedBox(
                             height: 10,
@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             "Fancy Name Generator",
                             style: TextStyle(
-                              fontSize: 17,
+                              fontSize: 15,fontFamily: "Montserrat"
                             ),
                           ),
                         ],

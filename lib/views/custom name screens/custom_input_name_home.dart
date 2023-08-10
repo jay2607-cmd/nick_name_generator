@@ -1,7 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
-import '../../constant.dart';
+import '../../utils/constant.dart';
 import 'custom_name_generator.dart';
 
 class CustomInputNameHome extends StatefulWidget {
@@ -63,13 +63,14 @@ class _CustomInputNameHomeState extends State<CustomInputNameHome> {
                   dashPattern: const [5, 10],
                   child: Center(
                     child: TextField(
-                      style: TextStyle(fontSize: 25),
+                      style: TextStyle(fontSize: 25,fontFamily: "Montserrat"),
                       maxLines: null,
                       textAlign: TextAlign.center,
                       controller: nameController,
                       decoration: const InputDecoration(
                         hintText: "Enter Name",
                         border: InputBorder.none,
+
                       ),
                     ),
                   ),
@@ -118,7 +119,7 @@ class _CustomInputNameHomeState extends State<CustomInputNameHome> {
                         },
                         child: const Text(
                           "Generate",
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(fontSize: 18,fontFamily: "Montserrat"),
                         )),
                   ),
                 ),

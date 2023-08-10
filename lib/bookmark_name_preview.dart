@@ -7,7 +7,7 @@ import 'package:nick_name/views/bookmarkes_name.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../database/bookmark.dart';
-import 'constant.dart';
+import 'utils/constant.dart';
 
 class BookmarkNamePreview extends StatefulWidget {
   String prefix = "", suffix = "", word = "";
@@ -68,7 +68,7 @@ class _BookmarkNamePreviewState extends State<BookmarkNamePreview> {
           title: Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Text(
-              "Auto Name Generator",
+              "Name Preview",
               style: kAppbarStyle,
             ),
           ),
@@ -111,11 +111,11 @@ class _BookmarkNamePreviewState extends State<BookmarkNamePreview> {
                           text: widget.word,
 
                           style: !widget.isForAIGenerated
-                              ? GoogleFonts.getFont(
-                                  widget.fontName,
-                                )
+                              ? TextStyle(
+                              fontFamily: widget.fontName
+                          )
                               : TextStyle(
-                                  fontWeight: FontWeight.bold,
+
                                 ), // Customize the name style here.
                         ),
                         TextSpan(

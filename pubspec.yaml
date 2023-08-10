@@ -86,10 +86,102 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Regular.ttf
+
+    - family: aurora
+      fonts:
+        - asset: fonts/aurora.ttf
+
+    - family: ergonom.ergonome
+      fonts:
+        - asset: fonts/ergonom.ergonome.ttf
+
+    - family: greenwich-mean
+      fonts:
+        - asset: fonts/greenwich-mean.time.ttf
+
+    - family: lunaNuevaType
+      fonts:
+        - asset: fonts/lunaNuevaType.ttf
+
+    - family: PAC-FONT
+      fonts:
+        - asset: fonts/PAC-FONT.TTF
+
+    - family: space age
+      fonts:
+        - asset: fonts/space age.ttf
+
+    - family: space-age.regular
+      fonts:
+        - asset: fonts/space-age.regular.ttf
+
+    - family: TANTRUMTONGUE
+      fonts:
+        - asset: fonts/TANTRUMTONGUE.ttf
+
+    - family: Vampire Wars
+      fonts:
+        - asset: fonts/Vampire Wars.ttf
+
+    - family: Vampire Wars Italic
+      fonts:
+        - asset: fonts/Vampire Wars Italic.ttf
+
+    - family: VIDEOPHREAK
+      fonts:
+        - asset: fonts/VIDEOPHREAK.ttf
+
+    - family: Andromeda
+      fonts:
+        - asset: fonts/Andromeda.ttf
+
+    - family: embezzler
+      fonts:
+        - asset: fonts/embezzler.ttf
+
+    - family: moondance
+      fonts:
+        - asset: fonts/moondance.ttf
+
+    - family: handygeorge
+      fonts:
+        - asset: fonts/handygeorge.ttf
+
+    - family: george
+      fonts:
+        - asset: fonts/george.ttf
+
+    - family: FriendlyMonster-lgr0X
+      fonts:
+        - asset: fonts/FriendlyMonster-lgr0X.otf
+
+    - family: Crackman
+      fonts:
+        - asset: fonts/Crackman.otf
+
+    - family: Crackman Back
+      fonts:
+        - asset: fonts/Crackman Back.otf
+
+    - family: Crackman Front
+      fonts:
+        - asset: fonts/Crackman Front.otf
+
+    - family: nasalization-rg
+      fonts:
+        - asset: fonts/nasalization-rg.otf
+
+    - family: vinque rg
+      fonts:
+        - asset: fonts/vinque rg.otf
+
+
+
+
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

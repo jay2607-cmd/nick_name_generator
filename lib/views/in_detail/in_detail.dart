@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../utils/constant.dart';
 import '../../database/bookmark.dart';
 import '../../utils/symbols_list.dart';
 import '../custom name screens/custom_name_generator.dart';
@@ -24,7 +25,7 @@ class _InDetailState extends State<InDetail> {
   final FocusNode _textFieldFocusNode = FocusNode();
 
   var answer = "Demo Text";
-  var nameForStyle = "name";
+  var nameForStyle = "Name";
 
   String fontNameGlobal = "Montserrat";
 
@@ -35,154 +36,269 @@ class _InDetailState extends State<InDetail> {
     super.initState();
     controller2.text = nameForStyle;
     _textFieldFocusNode.requestFocus();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
-      child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          toolbarHeight: 200,
-          flexibleSpace: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                height: 150,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: TextField(
-                        controller: controller1,
-                        style: GoogleFonts.getFont(fontNameGlobal),
-                        focusNode: _textFieldFocusNode,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CustomNameGenerator(
-                                    nameController: controller1.text),
-                              ),
-                            );
-                          },
-                          icon: Icon(Icons.edit),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => RandomNameGenerator(
-                                    nameController: controller1.text),
-                              ),
-                            );
-                          },
-                          icon: Icon(Icons.newspaper),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            controller1.clear();
-                          },
-                          icon: Icon(Icons.close),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            Clipboard.setData(new ClipboardData(
-                                    text: "${controller1.text}"))
-                                .then((_) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                      content:
-                                          Text('Copied to your clipboard !')));
-                            });
-                          },
-                          icon: Icon(Icons.copy),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            if (controller1.text.isNotEmpty) {
-                              Share.share('${controller1.text}',
-                                  subject: 'Sharing from Nick Name');
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  buildSnackBar(
-                                      "Empty Value Cannot be Shared"));
-                            }
-                          },
-                          icon: Icon(Icons.share),
-                        ),
-                      ],
-                    )
-                  ],
+      child: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Container(
+                margin: EdgeInsets.only(bottom: 235),
+                child: IconButton(
+                  icon: Image.asset(
+                    'assets/images/back.png',
+                    height: 24,
+                    width: 24,
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                 ),
               ),
-              TabBar(
-                isScrollable: true,
-                tabs: [
-                  buildTab("STYLISH NICKNAMES"),
-                  buildTab("ALL SYMBOLS"),
-                  buildTab("ALL STYLISH LETTERS"),
-                  buildTab("SAVED"),
-                ],
-              ),
+            ),
+            title: Container(
+                margin: EdgeInsets.only(bottom: 235),
+                child: Text("In Details", style: kAppbarStyle)),
+            toolbarHeight: 285,
+            flexibleSpace: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Container(
+                    height: 135,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: backgroundUI,
+                            ),
+                            width: double.infinity,
+                            child: Center(
+                              child: TextField(
+                                maxLines: null,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter Name",
+                                  border: InputBorder.none,
+                                ),
+                                textAlign: TextAlign.center,
+                                controller: controller1,
+                                style: TextStyle(fontFamily: fontNameGlobal),
+                                focusNode: _textFieldFocusNode,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor: circleAvatarUI,
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  CustomNameGenerator(
+                                                      nameController:
+                                                          controller1.text)));
+                                    },
+                                    icon: Image.asset(
+                                      'assets/images/edit.png',
+                                    )),
+                              ),
+                            ),
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor: circleAvatarUI,
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  RandomNameGenerator(
+                                                    nameController:
+                                                        controller1.text,
+                                                  )));
+                                    },
+                                    icon: Image.asset(
+                                      'assets/images/auto.png',
+                                    )),
+                              ),
+                            ),
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor: circleAvatarUI,
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                child: IconButton(
+                                  onPressed: () {
+                                    controller1.clear();
+                                  },
+                                  icon: Image.asset(
+                                    'assets/images/close.png',
+                                  ),
+                                ),
+                              ),
+                            ),
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor: circleAvatarUI,
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                child: IconButton(
+                                  onPressed: () {
+                                    Clipboard.setData(new ClipboardData(
+                                            text: "${controller1.text}"))
+                                        .then((_) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  'Copied to your clipboard !')));
+                                    });
+                                  },
+                                  icon: Image.asset(
+                                    'assets/images/copy.png',
+                                  ),
+                                ),
+                              ),
+                            ),
+                            CircleAvatar(
+                              radius: 25,
+                              backgroundColor: circleAvatarUI,
+                              child: Container(
+                                height: 45,
+                                width: 45,
+                                child: IconButton(
+                                  onPressed: () {
+                                    if (controller1.text.isNotEmpty) {
+                                      Share.share('${controller1.text}',
+                                          subject: 'Sharing from Nick Name');
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(buildSnackBar(
+                                              "Empty Value Cannot be Shared"));
+                                    }
+                                  },
+                                  icon: Image.asset(
+                                    'assets/images/share.png',
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 16, right: 16, top: 16),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                      color: backgroundUI,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: TabBar(
+                    unselectedLabelColor: Colors.black,
+                    labelColor: Colors.black,
+                    indicator: MyTabIndicator(overlayColor: Colors.white),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 2,
+                    ),
+                    isScrollable: true,
+                    tabs: [
+                      buildTab("STYLISH NICKNAMES"),
+                      buildTab("ALL SYMBOLS"),
+                      buildTab("ALL STYLISH LETTERS"),
+                      buildTab("SAVED"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              buildListViewForStylishNickNames(fontNameList),
+              buildListViewForAllSymbols(prefixList, suffixList),
+              buildListViewForAllStylishLetters(),
+              bookmarkedNames.isEmpty
+                  ? Center(child: Text("No Saved Names"))
+                  : Container(
+                      color: Colors.white,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 8),
+                        child: ListView.builder(
+                          itemCount: bookmarkBox.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            String savedNames = bookmarkedNames[index].name;
+                            String fontName = bookmarkedNames[index].fontName;
+                            String prefix = bookmarkedNames[index].prefix;
+                            String suffix = bookmarkedNames[index].suffix;
+                            String word = bookmarkedNames[index].word;
+                            bool isAIGenerated =
+                                bookmarkedNames[index].isAIGenerated;
+
+                            bool isBookmarked = bookmarkBox.values
+                                .any((bookmark) => bookmark.name == savedNames);
+
+                            return GestureDetector(
+                              onTap: () {
+                                String selectedText = savedNames;
+                                _insertTextAtCursor(selectedText);
+                                setState(() {});
+                              },
+                              child: ListTile(
+                                title: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: backgroundUI,
+                                  ),
+                                  padding: EdgeInsets.all(16),
+                                  child: Center(
+                                      child: Text(
+                                    savedNames,
+                                    style: !isAIGenerated
+                                        ? TextStyle(
+                                            fontFamily: fontName,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          )
+                                        : null,
+                                  )),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    )
             ],
           ),
-        ),
-        body: TabBarView(
-          children: [
-            buildListViewForStylishNickNames(fontNameList),
-            buildListViewForAllSymbols(prefixList, suffixList),
-            buildListViewForAllStylishLetters(),
-            bookmarkedNames.isEmpty
-                ? Center(child: Text("No Saved Names"))
-                : ListView.builder(
-                    itemCount: bookmarkBox.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      String savedNames = bookmarkedNames[index].name;
-                      String fontName = bookmarkedNames[index].fontName;
-                      String prefix = bookmarkedNames[index].prefix;
-                      String suffix = bookmarkedNames[index].suffix;
-                      String word = bookmarkedNames[index].word;
-                      bool isAIGenerated = bookmarkedNames[index].isAIGenerated;
-
-                      bool isBookmarked = bookmarkBox.values
-                          .any((bookmark) => bookmark.name == savedNames);
-
-                      return GestureDetector(
-                        onTap: () {
-                          String selectedText = savedNames;
-                          _insertTextAtCursor(selectedText);
-                          setState(() {});
-                        },
-                        child: ListTile(
-                          title: Center(
-                              child: Text(
-                            savedNames,
-                            style: !isAIGenerated
-                                ? GoogleFonts.getFont(
-                                    fontName,
-                                    textStyle: const TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
-                                : null,
-                          )),
-                        ),
-                      );
-                    },
-                  )
-          ],
         ),
       ),
     );
@@ -198,61 +314,75 @@ class _InDetailState extends State<InDetail> {
 
   Tab buildTab(String title) {
     return Tab(
-      child: Text(title),
+      child: Text(
+        title,
+        style: kNoneStyle,
+      ),
     );
   }
 
   buildListViewForStylishNickNames(List<String> name) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: TextField(
-                  controller: controller2,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: IconButton(
-                onPressed: () {
-                  nameForStyle = controller2.text;
-                  setState(() {});
-                },
-                icon: Icon(Icons.done),
-              ),
-            )
-          ],
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: name.length,
-            itemBuilder: (BuildContext context, int index) {
-              var fontName = name[index];
-              return GestureDetector(
-                onTap: () {
-                  String selectedText = controller2.text;
-                  _insertTextAtCursor(selectedText);
-                  fontNameGlobal = fontName;
-                  setState(() {});
-                },
-                child: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      controller2.text,
-                      style: GoogleFonts.getFont(fontName),
-                    ),
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: TextField(
+                    style: kNoneStyle,
+                    textAlign: TextAlign.center,
+                    controller: controller2,
                   ),
                 ),
-              );
-            },
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: IconButton(
+                  onPressed: () {
+                    nameForStyle = controller2.text;
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.done),
+                ),
+              )
+            ],
           ),
-        ),
-      ],
+          Expanded(
+            child: ListView.builder(
+              itemCount: name.length,
+              itemBuilder: (BuildContext context, int index) {
+                var fontName = name[index];
+                return GestureDetector(
+                  onTap: () {
+                    String selectedText = controller2.text;
+                    _insertTextAtCursor(selectedText);
+                    fontNameGlobal = fontName;
+                    setState(() {});
+                  },
+                  child: ListTile(
+                    title: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: backgroundUI,
+                      ),
+                      padding: EdgeInsets.all(16),
+                      child: Center(
+                        child: Text(
+                          controller2.text,
+                          style: TextStyle(fontFamily: fontName),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -261,64 +391,102 @@ class _InDetailState extends State<InDetail> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 0,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          toolbarHeight: 36,
           automaticallyImplyLeading: false,
-          bottom: TabBar(
-            tabs: [
-              Tab(
-                child: Text("Prefix"),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                  color: backgroundUI, borderRadius: BorderRadius.circular(10)),
+              child: TabBar(
+                unselectedLabelColor: Colors.black,
+                labelColor: Colors.black,
+                indicator: MyTabIndicator(overlayColor: Colors.white),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 2,
+                ),
+                tabs: [
+                  Tab(
+                    child: Text(
+                      "Prefix",
+                      style: kNoneStyle,
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      "Suffix",
+                      style: kNoneStyle,
+                    ),
+                  ),
+                ],
               ),
-              Tab(
-                child: Text("Suffix"),
-              ),
-            ],
+            ),
           ),
         ),
-        body: TabBarView(
-          children: [
-            ListView.builder(
-              itemCount: name1.length,
-              itemBuilder: (BuildContext context, int index) {
-                var prefixName = name1[index];
-                return GestureDetector(
-                  onTap: () {
-                    String selectedText = prefixName;
-                    _insertTextAtCursor(selectedText);
-                    setState(() {});
-                  },
-                  child: ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        prefixName,
+        body: Container(
+          color: Colors.white,
+          child: TabBarView(
+            children: [
+              ListView.builder(
+                itemCount: name1.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var prefixName = name1[index];
+                  return GestureDetector(
+                    onTap: () {
+                      String selectedText = prefixName;
+                      _insertTextAtCursor(selectedText);
+                      setState(() {});
+                    },
+                    child: ListTile(
+                      title: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: backgroundUI,
+                        ),
+                        padding: EdgeInsets.all(16),
+                        child: Center(
+                          child: Text(
+                            prefixName,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-            ListView.builder(
-              itemCount: name2.length,
-              itemBuilder: (BuildContext context, int index) {
-                var suffixName = name2[index];
-                return GestureDetector(
-                  onTap: () {
-                    String selectedText = suffixName;
-                    _insertTextAtCursor(selectedText);
-                    setState(() {});
-                  },
-                  child: ListTile(
-                    title: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        suffixName,
+                  );
+                },
+              ),
+              ListView.builder(
+                itemCount: name2.length,
+                itemBuilder: (BuildContext context, int index) {
+                  var suffixName = name2[index];
+                  return GestureDetector(
+                    onTap: () {
+                      String selectedText = suffixName;
+                      _insertTextAtCursor(selectedText);
+                      setState(() {});
+                    },
+                    child: ListTile(
+                      title: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: backgroundUI,
+                        ),
+                        padding: EdgeInsets.all(16),
+                        child: Center(
+                          child: Text(
+                            suffixName,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            )
-          ],
+                  );
+                },
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -329,14 +497,31 @@ class _InDetailState extends State<InDetail> {
       length: 26,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: 0,
+          elevation: 0,
+          backgroundColor: Colors.white,
+          toolbarHeight: 36,
           automaticallyImplyLeading: false,
-          bottom: TabBar(
-            isScrollable: true,
-            tabs: [
-              for (int i = 0; i < 26; i++)
-                buildTab(String.fromCharCode('A'.codeUnitAt(0) + i)),
-            ],
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              decoration: BoxDecoration(
+                  color: backgroundUI, borderRadius: BorderRadius.circular(10)),
+              child: TabBar(
+                unselectedLabelColor: Colors.black,
+                labelColor: Colors.black,
+                indicator: MyTabIndicator(overlayColor: Colors.white),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 2,
+                ),
+                isScrollable: true,
+                tabs: [
+                  for (int i = 0; i < 26; i++)
+                    buildTab(String.fromCharCode('A'.codeUnitAt(0) + i)),
+                ],
+              ),
+            ),
           ),
         ),
         body: TabBarView(
@@ -373,27 +558,36 @@ class _InDetailState extends State<InDetail> {
     );
   }
 
-  ListView buildListViewForStylishLetters(List<String> name1) {
-    return ListView.builder(
-      itemCount: name1.length,
-      itemBuilder: (BuildContext context, int index) {
-        var prefixName = name1[index];
-        return GestureDetector(
-          onTap: () {
-            String selectedText = prefixName;
-            _insertTextAtCursor(selectedText);
-            setState(() {});
-          },
-          child: ListTile(
-            title: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                prefixName,
+  buildListViewForStylishLetters(List<String> name1) {
+    return Container(
+      color: Colors.white,
+      child: ListView.builder(
+        itemCount: name1.length,
+        itemBuilder: (BuildContext context, int index) {
+          var prefixName = name1[index];
+          return GestureDetector(
+            onTap: () {
+              String selectedText = prefixName;
+              _insertTextAtCursor(selectedText);
+              setState(() {});
+            },
+            child: ListTile(
+              title: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: backgroundUI,
+                ),
+                padding: EdgeInsets.all(16),
+                child: Center(
+                  child: Text(
+                    prefixName,
+                  ),
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

@@ -9,7 +9,7 @@ class Splash extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Timer(
-        const Duration(milliseconds: 1500),
+        const Duration(milliseconds: 2000),
         () => Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeScreen())));
 
@@ -20,7 +20,7 @@ class Splash extends StatelessWidget {
           children: [
             Image(
               image: AssetImage(
-                "assets/images/splash.png",
+                "assets/images/splash_icon_nickName.png",
               ),
               height: 155,
               width: 155,

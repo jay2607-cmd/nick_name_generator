@@ -4,7 +4,7 @@ import 'package:nick_name/views/trending_names_category/free_fire.dart';
 import 'package:nick_name/views/trending_names_category/pubg.dart';
 import 'package:nick_name/views/trending_names_category/valorent.dart';
 
-import '../constant.dart';
+import '../utils/constant.dart';
 
 class TrendingNamesHomeScreen extends StatefulWidget {
   const TrendingNamesHomeScreen({super.key});
