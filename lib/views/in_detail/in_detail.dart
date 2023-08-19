@@ -89,6 +89,9 @@ class _InDetailState extends State<InDetail> {
                                 maxLines: null,
                                 decoration: const InputDecoration(
                                   hintText: "Enter Name",
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'Montserrat', // Replace with the desired font family for hint text
+                                  ),
                                   border: InputBorder.none,
                                 ),
                                 textAlign: TextAlign.center,
